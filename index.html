@@ -49,6 +49,61 @@
     <main>
       <section id="content">
         <h2>hey</h2>
+        <p>
+          Inside getStreamedHtmlResponse we construct a new ReadableStream that
+          is passed an underlyingSource object, containing the start method
+          which is called immediately after the stream is constructed. start is
+          passed a controller argument which is a
+          ReadableStreamDefaultController that allows control of the internal
+          state and queue of the ReadableStream. Inside the start method, we
+          fetch the templates for the HTML page and push the contents of the
+          templates as individual streams into the main stream using the
+          pushToStream function. This function reads the individual streams from
+          the templates chunk by chunk and enqueues them using
+          controller.enqueue(). Since the start function is asynchronous, a new
+          Response is immediately returned with the ReadableStream as the body
+          of the response. The browser can now stream the response and the page
+          appears on the screen nearly instantly. Just let that sink in for a
+          moment: we are now able to serve responses instantly, just like a
+          single-page app, but without any of the complexity that a single-page
+          app brings. No client-side routing, no framework and no complicated
+          server-side rendering. All rendering is handled by the Service Worker
+          that serves blazing fast, streaming responses. Single-page apps are
+          polyfills This basically reduces single-page apps to a polyfill, which
+          is a pretty bold statement, but here’s why: This multi-page app will
+          render just as fast as a single-page app or even faster when page size
+          increases because we use the browser’s streaming HTML parser.
+          Single-page apps bypass the streaming parser and fail to take
+          advantage of it. Just like in a single-page app, only the content that
+          changes is fetched from the network. But because the Service Worker
+          caches all assets and serves them locally, network traffic is limited
+          to the absolute bare minimum. The complexity of your app is
+          dramatically reduced. Client-side routing is no longer needed and you
+          don’t need a framework to render the pages. The Service Worker takes
+          care of all rendering and it operates in its own thread, separate from
+          the main UI thread. Server-side rendering comes for free, just stitch
+          the separate templates together and serve them like any other HTML
+          page. These will be served on first render when the Service Worker is
+          not yet controlling the page. On subsequent renders, the Service
+          Worker will seamlessly serve the cached page since there is no
+          client-side routing to take care of. Does it really work? Now you
+          might wonder if a multi-page app like this can really beat a
+          single-page app when it comes to speed and performance. I created a
+          demo so you can see for yourself how fast a multi-page app using
+          streaming HTML can really be. You can find the source code here on
+          Github. If you click around you will notice that the header of the
+          page stays firmly in place, even though every page requires a full
+          page reload and some pages are pretty heavy. This is how good browsers
+          are at rendering the DOM if we use the streaming HTML parser. Browsers
+          are not slow. The DOM is not slow. The way we try to shoehorn the
+          single-page app model into a medium that is inherently multi-page, by
+          throwing frameworks and a slew of libraries at it, makes it slow.
+          Conclusion Using a Service Worker and correctly utilizing the
+          browser’s streaming HTML parser can dramatically boost the performance
+          of your web app and usually defeats the purpose of having a
+          single-page app altogether. You are now working with the platform and
+          not against it.
+        </p>
       </section>
     </main>
 

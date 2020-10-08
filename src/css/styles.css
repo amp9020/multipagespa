@@ -1,4 +1,5 @@
-html, body {
+html,
+body {
   min-height: 100%;
   height: 100%;
   margin: 0;
@@ -11,7 +12,8 @@ main {
   flex-direction: column;
   align-items: center;
 }
-header, footer {
+header,
+footer {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -19,6 +21,21 @@ header, footer {
   background-color: #337ab7;
   padding: 10px;
   color: #ffffff;
+}
+
+.wrapper {
+  display: grid;
+  grid-template-columns:
+    1fr
+    min(65ch, 100%)
+    1fr;
+}
+.wrapper > * {
+  grid-column: 2;
+}
+.full-bleed {
+  width: 100%;
+  grid-column: 1 / 4;
 }
 
 material-dropdown {
@@ -30,7 +47,8 @@ material-dropdown:defined {
 }
 
 @media screen and (min-width: 1024px) {
-  header, footer {
+  header,
+  footer {
     justify-content: center;
   }
 }
@@ -156,7 +174,7 @@ img {
   }
 }
 #preview-portal {
-  position:fixed;
+  position: fixed;
   width: 100%;
   height: 100%;
   z-index: 9;
