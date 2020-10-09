@@ -53,10 +53,10 @@ material-dropdown:defined {
   }
 }
 #content {
-  flex-grow: 1;
+  /* flex-grow: 1;
   background-color: #ffffff;
   padding: 10px;
-  width: 85%;
+  width: 85%; */
 }
 @media screen and (min-width: 1024px) {
   #content {
